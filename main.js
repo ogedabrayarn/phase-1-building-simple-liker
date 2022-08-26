@@ -3,8 +3,32 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+const modal = document.querySelector('#modal').className = 'hidden';
 
+const icons = document.querySelectorAll('.like-glyph')
+icons.forEach(icon => {
+  icon.addEventListener('click', (e) => {
+    mimicServerCall()
 
+    .then(res => {
+      if (icon.innerHTML === EMPTY_HEART) {
+        icon.innerHTML = FULL_HEART
+        icon.className = 'activated-heart'
+      } else {
+        icon.innerHTML = EMPTY_HEART
+        icon.className = ''
+      }
+    })
+
+    .catch(error => {
+      modal.className = ''
+      modal.innerText = error
+      setTimeout(() => {
+        modal.className = 'hidden'
+      }, 1000)
+    })
+  })
+})
 
 
 //------------------------------------------------------------------------------
